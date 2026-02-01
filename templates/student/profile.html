@@ -4,6 +4,227 @@
     <meta charset="UTF-8">
     <title>Student Profile</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ========== RESET & BASE ========== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background: #f4f6f9;
+  color: #1f2937;
+  line-height: 1.5;
+}
+
+/* ========== PAGE LAYOUT ========== */
+.page-wrapper {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ========== CARD ========== */
+.card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 28px 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ========== HEADINGS ========== */
+.card h3 {
+  margin-top: 28px;
+  margin-bottom: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 6px;
+}
+
+/* ========== INPUTS ========== */
+input,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ========== FILE INPUTS ========== */
+input[type="file"] {
+  padding: 6px;
+  font-size: 13px;
+}
+
+/* ========== LABELS ========== */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* ========== DYNAMIC SECTIONS ========== */
+#skills-container,
+#projects-container,
+#internships-container,
+#achievements-container {
+  margin-bottom: 10px;
+}
+
+.dynamic-item {
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px dashed #d1d5db;
+  border-radius: 6px;
+  background: #f9fafb;
+}
+
+/* ========== BUTTONS ========== */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Add buttons */
+.add-btn {
+  background: #e5e7eb;
+  color: #111827;
+  padding: 8px 14px;
+  margin-bottom: 20px;
+  transition: background 0.2s;
+}
+
+.add-btn:hover {
+  background: #d1d5db;
+}
+
+/* Submit button */
+button[type="submit"] {
+  background: #2563eb;
+  color: #ffffff;
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 16px;
+  margin-top: 24px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button[type="submit"]:hover {
+  background: #1d4ed8;
+}
+
+button[type="submit"]:active {
+  transform: scale(0.98);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 600px) {
+  .card {
+    padding: 20px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+}
+/* ========== DARK MODE (SYSTEM) ========== */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #0f172a;
+    color: #e5e7eb;
+  }
+
+  .page-title {
+    color: #f9fafb;
+  }
+
+  .card {
+    background: #020617;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+
+  .card h3 {
+    color: #f9fafb;
+    border-bottom-color: #1e293b;
+  }
+
+  label {
+    color: #cbd5f5;
+  }
+
+  input,
+  select {
+    background: #020617;
+    color: #e5e7eb;
+    border-color: #334155;
+  }
+
+  input::placeholder {
+    color: #94a3b8;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+  }
+
+  .dynamic-item {
+    background: #020617;
+    border-color: #334155;
+  }
+
+  .add-btn {
+    background: #1e293b;
+    color: #e5e7eb;
+  }
+
+  .add-btn:hover {
+    background: #334155;
+  }
+
+  button[type="submit"] {
+    background: #3b82f6;
+  }
+
+  button[type="submit"]:hover {
+    background: #2563eb;
+  }
+}
+
+    </style>
 </head>
 <body>
 <div class="page-wrapper">
