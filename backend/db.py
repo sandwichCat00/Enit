@@ -350,3 +350,5 @@ class DB:
             "msg": f"Internal error: {str(e)}"
         }
 
+def suggestion():
+    pass

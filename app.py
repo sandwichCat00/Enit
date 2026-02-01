@@ -14,12 +14,12 @@ def handle_req():
 def index():
     return render_template('index.html')
 
-# @app.route('/login/student', methods=['GET', 'POST'])
-# def student_login():
-#     if request.method == 'POST':
-#         print("DEBUG: Student Login Button Clicked!") 
-#         return render_template('student/dashboard_stud.html')
-#     return render_template('auth/student_login.html')
+@app.route('/signup/student', methods=['GET', 'POST'])
+def student_signup():
+    if request.method == 'POST':
+        print("DEBUG: Student Login Button Clicked!") 
+        return render_template('student/dashboard_stud.html')
+    return render_template('auth/student_signup.html')
 
 
 @app.route('/login/student', methods=['GET'])
