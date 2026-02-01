@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Placement Portal{% endblock %}</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- Optional simple navbar -->
+    <header style="padding:15px; background:#111; color:white;">
+        <h2>Campus Placement Portal</h2>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main style="padding:20px;">
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Company Dashboard</h2>
+
+<div class="card">
+    <h3>Post New Hiring Drive</h3>
+    <a href="/company/post-job">
+        <button>Create Drive</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>Active Drives</h3>
+    {% for drive in drives %}
+        <p>
+            <strong>{{ drive.role }}</strong><br>
+            Min CGPA: {{ drive.min_cgpa }} |
+            Max Backlogs: {{ drive.max_backlogs }}
+        </p>
+        <a href="/company/applicants/{{ drive.id }}">
+            <button>View Applicants</button>
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}
