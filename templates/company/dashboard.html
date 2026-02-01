@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Available Companies</h3>
+
+{% for company in companies %}
+<div class="card">
+    <h4>{{ company.name }}</h4>
+    <p>Role: {{ company.role }}</p>
+
+    {% if company.eligible %}
+        <p class="success">Eligible ✔</p>
+        <p>{{ company.reason }}</p>
+        <button>Apply</button>
+    {% else %}
+        <p class="reason">Not Eligible ❌</p>
+        <p>{{ company.reason }}</p>
+    {% endif %}
+</div>
+{% endfor %}
+{% endblock %}

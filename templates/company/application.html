@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Applicants</h3>
+
+{% for student in students %}
+<div class="card">
+    <h4>{{ student.name }}</h4>
+    <p>CGPA: {{ student.cgpa }}</p>
+    <p>Status: {{ student.status }}</p>
+    <p class="reason">{{ student.reason }}</p>
+</div>
+{% endfor %}
+{% endblock %}
