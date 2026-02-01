@@ -33,8 +33,15 @@ def student_login():
     return render_template('auth/student_login.html')
 
 
-
-
+@app.route('/candidate', methods=['GET'])
+def cand():
+    return render_template('company/candidate.html')
+@app.route('/job', methods=['GET'])
+def job():
+    return render_template('company/job.html')
+@app.route('/info', methods=['GET'])
+def info():
+    return render_template('company/company_info.html')
 
 @app.route('/login/company', methods=['GET'])
 def company_login():

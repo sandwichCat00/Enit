@@ -1,18 +1,8 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 {% extends 'base.html' %}
 
 {% block content %}
 
-<header class="main-header">
-  <div class="logo-container">
-    <img src="ChatGPT Image Feb 1, 2026, 12_58_12 PM.png" alt="Company Logo" class="logo">
-  </div>
-  <nav class="nav-links">
-    <a href="#home">Home</a>
-    <a href="#about">About Us</a>
-  </nav>
-
-<div class="container">
+<div class="dashboard-root">
     <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="logo">
@@ -20,45 +10,29 @@
         </div>
 
         <ul class="menu">
-            <ul class="menu">
-  <li class="{% if request.path.endswith('dashboard') %}active{% endif %}">
-    <a href="{{ url_for('company_dashboard') }}">
-      <i class="fas fa-th-large"></i> Dashboard
-    </a>
-  </li>
+            <li class="{% if request.path.endswith('dashboard') %}active{% endif %}">
+                <a href="{{ url_for('company_dashboard') }}">
+                    <i class="fas fa-th-large"></i> Dashboard
+                </a>
+            </li>
 
-  <li class="{% if request.path.endswith('candidates') %}active{% endif %}">
-    <a href="{{ url_for('company_candidates') }}">
-      <i class="fas fa-user-graduate"></i> Candidates
-    </a>
-  </li>
+            <li class="{% if request.path.endswith('candidate') %}active{% endif %}">
+                <a href="/candidate">
+                    <i class="fas fa-user-graduate"></i> Candidates
+                </a>
+            </li>
 
-  <li class="{% if request.path.endswith('jobs') %}active{% endif %}">
-    <a href="{{ url_for('company_jobs') }}">
-      <i class="fas fa-briefcase"></i> Jobs
-    </a>
-  </li>
-
-  <li class="{% if request.path.endswith('interviews') %}active{% endif %}">
-    <a href="{{ url_for('company_interviews') }}">
-      <i class="fas fa-calendar-alt"></i> Interviews
-    </a>
-  </li>
-
-  <li class="{% if request.path.endswith('settings') %}active{% endif %}">
-    <a href="{{ url_for('company_settings') }}">
-      <i class="fas fa-cog"></i> Settings
-    </a>
-  </li>
-</ul>
-
+            <li class="{% if request.path.endswith('job') %}active{% endif %}">
+                <a href="/job">
+                    <i class="fas fa-briefcase"></i> Jobs
+                </a>
+            </li>
         </ul>
 
         <div class="logout">
-        <a href="{{ url_for('company_login') }}">
-            <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
-
+            <a href="{{ url_for('company_login') }}">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
         </div>
     </aside>
 
@@ -84,10 +58,7 @@
             <div class="card kpi-card">
                 <div class="card-info">
                     <h3>Total Applied</h3>
-                    <h2 id="total-applied">0</h2>
-                    <span class="trend positive">
-                        <i class="fas fa-arrow-up"></i> +12% this week
-                    </span>
+                    <h2 id="total-applied">2</h2>
                 </div>
                 <div class="card-icon blue">
                     <i class="fas fa-users"></i>
@@ -97,10 +68,8 @@
             <div class="card kpi-card">
                 <div class="card-info">
                     <h3>Shortlisted</h3>
-                    <h2 id="total-shortlisted">0</h2>
-                    <span class="trend positive">
-                        <i class="fas fa-arrow-up"></i> +5% this week
-                    </span>
+                    <h2 id="total-shortlisted">1</h2>
+                    
                 </div>
                 <div class="card-icon green">
                     <i class="fas fa-check-circle"></i>
@@ -110,7 +79,7 @@
             <div class="card kpi-card">
                 <div class="card-info">
                     <h3>Pending Review</h3>
-                    <h2 id="total-pending">0</h2>
+                    <h2 id="total-pending">3</h2>
                     <span class="trend neutral">
                         <i class="fas fa-minus"></i> Stable
                     </span>
@@ -120,16 +89,7 @@
                 </div>
             </div>
 
-            <div class="card kpi-card">
-                <div class="card-info">
-                    <h3>Interviews Today</h3>
-                    <h2>4</h2>
-                    <span class="trend">Next: 2:00 PM</span>
-                </div>
-                <div class="card-icon purple">
-                    <i class="fas fa-video"></i>
-                </div>
-            </div>
+    
         </div>
 
         <!-- CHARTS -->
@@ -172,7 +132,5 @@
         </div>
     </main>
 </div>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
 
 {% endblock %}

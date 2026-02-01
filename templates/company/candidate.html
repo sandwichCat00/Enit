@@ -1,17 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="dashboard-root">
-  {% include 'company/sidebar.html' %}
+<div class="">
   <main class="main-content">
     <h1>Candidates</h1>
-    <p>List of students who applied</p>
+    <p  style="padding-bottom: 20px;">List of students who applied</p>
 
     <div class="card">
       <table>
-        <tr>        </tr>
-        <tr></td>
-        </tr>
-      </table>
+    <tr>
+      <th>Name</th>
+      <th>Department</th>
+      <th>Status</th>
+    </tr>
+
+    <tr>
+      <td>Aman Verma</td>
+      <td>CSE</td>
+      <td>Applied</td>
+    </tr>
+
+    <tr>
+      <td>Riya Sharma</td>
+      <td>IT</td>
+      <td>Shortlisted</td>
+    </tr>
+
+    <tr>
+      <td>Arjun Patel</td>
+      <td>ECE</td>
+      <td>Interview</td>
+    </tr>
+
+    <tr>
+      <td>Neha Singh</td>
+      <td>AI</td>
+      <td>Placed</td>
+    </tr>
+</table>
+
     </div>
   </main>
 </div>

@@ -335,17 +335,28 @@ input:focus {
   gap: 40px;
 }
 
+/* ======================================================
+   ROOT THEME TOKENS
+====================================================== */
+:root {
+  --bs-950: #020617;
+  --bs-900: #020617;
+  --bs-800: #0f172a;
+
+  --bs-400: #94a3b8;
+  --bs-100: #e5e7eb;
+  --bs-50:  #f9fafb;
+}
 
 /* ======================================================
-   DASHBOARD (SCOPED – NO GLOBAL CONFLICTS)
+   DASHBOARD ROOT (SCOPED)
 ====================================================== */
-
 .dashboard-root {
   display: flex;
   min-height: 100vh;
   background: radial-gradient(circle at top left, var(--bs-800), var(--bs-950));
   color: var(--bs-100);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
 /* ================= SIDEBAR ================= */
@@ -364,13 +375,10 @@ input:focus {
   margin-bottom: 40px;
 }
 
-.dashboard-root .logo span {
-  color: var(--bs-50);
-}
-
 .dashboard-root .menu {
   list-style: none;
   padding: 0;
+  margin: 0;
   flex-grow: 1;
 }
 
@@ -382,12 +390,12 @@ input:focus {
   border-radius: 14px;
   text-decoration: none;
   color: var(--bs-400);
-  transition: 0.3s;
+  transition: background 0.25s, color 0.25s;
 }
 
 .dashboard-root .menu li.active a,
 .dashboard-root .menu a:hover {
-  background: rgba(99,102,241,0.18);
+  background: rgba(99, 102, 241, 0.18);
   color: var(--bs-50);
 }
 
@@ -399,7 +407,7 @@ input:focus {
 }
 
 .dashboard-root .logout a:hover {
-  background: rgba(239,68,68,0.15);
+  background: rgba(239, 68, 68, 0.15);
 }
 
 /* ================= MAIN ================= */
@@ -537,5 +545,28 @@ input:focus {
 }
 
 .dashboard-root tbody tr:hover {
-  background: rgba(99,102,241,0.1);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1024px) {
+  .dashboard-root .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-root .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-root {
+    flex-direction: column;
+  }
+
+  .dashboard-root .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
