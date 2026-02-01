@@ -3,7 +3,6 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 app = Flask(__name__)
 app.secret_key = "campus_secret_key"
 
-# --- COMMON ROUTES ---
 
 @app.route('/')
 def index():

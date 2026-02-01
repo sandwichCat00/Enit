@@ -4,14 +4,15 @@ from db import DB, DBError
 def run_tests():
     try:
         db = DB()
-        print("✅ Connected to MongoDB")
+        print("Connected to MongoDB")
 
-        print("\n--- STUDENT TESTS ---")
+        print("\nSTUDENT TESTS")
 
         student_data = {
             "student_id": "TEST2026CSE001",
             "college_id": "COL001",
             "name": "Test Student",
+            "pfp": "",
             "email": "test@student.edu",
             "phone": "+911234567890",
             "branch": "CSE",
@@ -27,22 +28,22 @@ def run_tests():
         }
 
         sid = db.insert_student(student_data)
-        print(f"✅ Student inserted: {sid}")
+        print(f"Student inserted: {sid}")
 
         student = db.find_student({"student_id": "TEST2026CSE001"})
-        print("📄 Student fetched:", student)
+        print("Student fetched:", student)
 
         updated = db.update_student(
             {"student_id": "TEST2026CSE001"},
             {"cgpa": 8.8}
         )
-        print(f"✏️ Student updated: {updated}")
+        print(f"Student updated: {updated}")
 
         deleted = db.delete_student(
             {"student_id": "TEST2026CSE001"},
             soft=True
         )
-        print(f"🗑️ Student soft-deleted: {deleted}")
+        print(f"Student soft-deleted: {deleted}")
 
         print("\n--- RECRUITER TESTS ---")
 
@@ -65,30 +66,30 @@ def run_tests():
         }
 
         rid = db.insert_recruiter(recruiter_data)
-        print(f"✅ Recruiter inserted: {rid}")
+        print(f"Recruiter inserted: {rid}")
 
         recruiter = db.find_recruiters({"company_name": "TestCorp"})
-        print("📄 Recruiter fetched:", recruiter)
+        print("Recruiter fetched:", recruiter)
 
         updated = db.update_recruiter(
             {"company_name": "TestCorp"},
             {"work_mode": "hybrid"}
         )
-        print(f"✏️ Recruiter updated: {updated}")
+        print(f"Recruiter updated: {updated}")
 
         deleted = db.delete_recruiter(
             {"company_name": "TestCorp"},
             soft=True
         )
-        print(f"🗑️ Recruiter soft-deleted: {deleted}")
+        print(f"Recruiter soft-deleted: {deleted}")
 
-        print("\n🎉 ALL TESTS PASSED")
+        print("\nALL TESTS PASSED")
 
     except DBError as e:
-        print("❌ DB ERROR:", e)
+        print("DB ERROR:", e)
 
     except Exception as e:
-        print("🔥 UNEXPECTED ERROR:", e)
+        print("UNEXPECTED ERROR:", e)
 
 
 if __name__ == "__main__":

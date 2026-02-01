@@ -5,6 +5,7 @@ import uuid
 """
 Student:
   student_id: ""          # e.g. "2022CSE045" (UNIQUE)
+  pfp: ""                 # /uploads/pfps/student_id.jpg
   college_id: ""          # internal college ERP id
   name: ""
   email: ""               # institutional / personal
@@ -267,3 +268,66 @@ class DB:
 
         except errors.PyMongoError as e:
             raise DBError(f"Delete recruiter failed: {str(e)}")
+
+    def act(self, query: dict):
+        try:
+            task = query.get("task")
+            data = query.get("data", {})
+
+            match task:
+                case "newUser":
+                    self.insert_student(data)
+                    return {"status": "ok"}
+
+                case "getStudent":
+                    student = self.find_student(data)
+                    return {"status": "ok", "data": student}
+
+                case "updateStudent":
+                    self.update_student(
+                    data.get("query", {}),
+                    data.get("update", {})
+                    )
+                    return {"status": "ok"}
+
+                case "deleteStudent":
+                    self.delete_student(data, soft=True)
+                    return {"status": "ok"}
+
+                case "newRecruiter":
+                    self.insert_recruiter(data)
+                    return {"status": "ok"}
+
+                case "getRecruiter":
+                    recruiter = self.find_recruiter(data)
+                    return {"status": "ok", "data": recruiter}
+
+                case "updateRecruiter":
+                    self.update_recruiter(
+                        data.get("query", {}),
+                        data.get("update", {})
+                    )
+                    return {"status": "ok"}
+
+                case "deleteRecruiter":
+                    self.delete_recruiter(data, soft=True)
+                    return {"status": "ok"}
+
+                case _:
+                    return {
+                    "status": "error",
+                    "msg": f"Unknown task: {task}"
+                    }
+
+        except DBError as e:
+            return {
+            "status": "error",
+            "msg": e.args[0]
+            }
+
+        except Exception as e:
+            return {
+            "status": "error",
+            "msg": f"Internal error: {str(e)}"
+        }
+
