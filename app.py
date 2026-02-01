@@ -1,17 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-
+import backend.db as db
 app = Flask(__name__)
 app.secret_key = "campus_secret_key"
 
+dbase = db.DB()
 
-@app.route('/')
+@app.route('/', methods=['POST'])
+def handle_req():
+    data = request.form
+    return dbase.act(data)
+
+@app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
-
-
-
-
-
 
 # @app.route('/login/student', methods=['GET', 'POST'])
 # def student_login():
@@ -21,7 +22,7 @@ def index():
 #     return render_template('auth/student_login.html')
 
 
-@app.route('/login/student', methods=['GET', 'POST'])
+@app.route('/login/student', methods=['GET'])
 def student_login():
     if request.method == 'POST':
         print("DEBUG: Student Login Button Clicked!") 
@@ -35,7 +36,7 @@ def student_login():
 
 
 
-@app.route('/login/company', methods=['GET', 'POST'])
+@app.route('/login/company', methods=['GET'])
 def company_login():
     if request.method == 'POST':
         print("DEBUG: Company Login Button Clicked!") 
@@ -59,14 +60,14 @@ def view_applications():
     return render_template('company/application.html')
 
 
-@app.route('/student/dashboard')
-def student_dashboard():
-    # 1. Create dummy data (later this will come from your database)
-    student_data = {
-        'name': 'Rahul Sharma',
-        'branch': 'Computer Science',
-        'cgpa': 8.5
-    }
+# @app.route('/student/dashboard')
+# def student_dashboard():
+#     # 1. Create dummy data (later this will come from your database)
+#     student_data = {
+#         'name': 'Rahul Sharma',
+#         'branch': 'Computer Science',
+#         'cgpa': 8.5
+#     }
 
     return render_template('student/dashboard_stud.html', student=student_data)
 
