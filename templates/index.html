@@ -1,19 +1,16 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% extends 'base.html' %}
 
-</head>
-<body>
-    <nav class="navbar">
-        <h2>Campus Placement Portal</h2>
-    </nav>
+{% block content %}
+<div class="card">
+    <h3>Welcome to Campus Placement Portal</h3>
+    <p>Select your role to continue</p>
 
-    <div class="container">
-        {% block content %}{% endblock %}
-    </div>
-</body>
-</html>
+    <a href="/student/login">
+        <button>Student Login</button>
+    </a>
+
+    <a href="/company/login">
+        <button>Company Login</button>
+    </a>
+</div>
+{% endblock %}
