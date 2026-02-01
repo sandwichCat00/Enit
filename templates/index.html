@@ -1,16 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card">
-    <h3>Welcome to Campus Placement Portal</h3>
-    <p>Select your role to continue</p>
 
-    <a href="/student/login">
-        <button>Student Login</button>
-    </a>
+<div class="page-wrapper">
+   <div class="head">
+    <!-- BIG HEADING -->
+      <h2 class="page-title">Campus Placement Portal</h2>
+      <h1>Choose Your Account Type</h1>
+   </div>
 
-    <a href="/company/login">
-        <button>Company Login</button>
-    </a>
+  <!-- CARDS -->
+  <div class="container">
+      
+    <div class="card">
+      <h2>For Companies</h2>
+      <p>
+        Thousands of companies hire and upskill student developers across roles and careers.
+      </p>
+
+      <button onclick="window.location.href='{{ url_for('company_login') }}'">
+        Login
+      </button>
+
+      <div class="signup">
+        Sign Up
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>For Students</h2>
+      <p>
+        Join millions of students, practice coding, prepare for interviews, and get hired.
+      </p>
+
+      <!-- FIXED: route name must exist in app.py -->
+      <button onclick="window.location.href='{{ url_for('student_login') }}'">
+        Login
+      </button>
+
+      <div class="signup">
+        Sign up
+      </div>
+    </div>
+
+  </div>
 </div>
+
 {% endblock %}
