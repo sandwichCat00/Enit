@@ -1,109 +1,87 @@
-// Data Simulation
-const dashboardData = {
-    totalApplied: 1240,
-    shortlisted: 350,
-    pending: 45,
-    rejected: 845
-};
+// KPI values (replace later with backend data)
+document.getElementById("total-applied").innerText = "1,240";
+document.getElementById("total-shortlisted").innerText = "350";
+document.getElementById("total-pending").innerText = "45";
 
-const applicants = [
-    { name: "Rahul Sharma", role: "Frontend Dev", exp: "2 Years", date: "2023-10-25", status: "Shortlisted" },
-    { name: "Priya Patel", role: "UI/UX Designer", exp: "Fresher", date: "2023-10-24", status: "Pending" },
-    { name: "Amit Singh", role: "Backend Dev", exp: "3 Years", date: "2023-10-24", status: "Rejected" },
-    { name: "Sneha Gupta", role: "Frontend Dev", exp: "1 Year", date: "2023-10-23", status: "Shortlisted" },
-    { name: "Vikram Malhotra", role: "Data Analyst", exp: "4 Years", date: "2023-10-22", status: "Pending" }
-];
+// ===============================
+// Application Trends (Line Chart)
+// ===============================
+const ctx1 = document.getElementById("applicationChart");
 
-// Initialize Dashboard
-document.addEventListener('DOMContentLoaded', () => {
-    updateKPIs();
-    renderCharts();
-    populateTable();
+new Chart(ctx1, {
+  type: "line",
+  data: {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    datasets: [{
+      data: [65, 58, 80, 82, 55, 105, 120],
+      borderColor: "#6366f1",
+      backgroundColor: "rgba(99,102,241,0.15)",
+      tension: 0.4,
+      fill: true,
+      pointRadius: 4,
+      pointBackgroundColor: "#6366f1"
+    }]
+  },
+  options: {
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: "#9ca3af" } },
+      y: { grid: { color: "rgba(255,255,255,0.05)" }, ticks: { color: "#9ca3af" } }
+    }
+  }
 });
 
-// Update Top Cards
-function updateKPIs() {
-    document.getElementById('total-applied').innerText = dashboardData.totalApplied.toLocaleString();
-    document.getElementById('total-shortlisted').innerText = dashboardData.shortlisted.toLocaleString();
-    document.getElementById('total-pending').innerText = dashboardData.pending.toLocaleString();
-}
+// ===============================
+// Role Distribution (Doughnut)
+// ===============================
+const ctx2 = document.getElementById("roleChart");
 
-// Render Charts using Chart.js
-function renderCharts() {
-    // 1. Line Chart: Application Trends
-    const ctxApp = document.getElementById('applicationChart').getContext('2d');
-    new Chart(ctxApp, {
-        type: 'line',
-        data: {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            datasets: [{
-                label: 'New Applications',
-                data: [65, 59, 80, 81, 56, 105, 120],
-                borderColor: '#4f46e5',
-                backgroundColor: 'rgba(79, 70, 229, 0.1)',
-                fill: true,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false }
-            },
-            scales: {
-                y: { beginAtZero: true }
-            }
-        }
-    });
+new Chart(ctx2, {
+  type: "doughnut",
+  data: {
+    labels: ["Frontend", "Backend", "UI/UX", "QA"],
+    datasets: [{
+      data: [40, 30, 20, 10],
+      backgroundColor: [
+        "#6366f1",
+        "#10b981",
+        "#f59e0b",
+        "#9ca3af"
+      ],
+      borderWidth: 2,
+      borderColor: "#020617"
+    }]
+  },
+  options: {
+    cutout: "70%",
+    plugins: {
+      legend: {
+        labels: { color: "#9ca3af" }
+      }
+    }
+  }
+});
 
-    // 2. Doughnut Chart: Role Distribution
-    const ctxRole = document.getElementById('roleChart').getContext('2d');
-    new Chart(ctxRole, {
-        type: 'doughnut',
-        data: {
-            labels: ['Frontend', 'Backend', 'UI/UX', 'QA'],
-            datasets: [{
-                data: [40, 30, 20, 10],
-                backgroundColor: [
-                    '#4f46e5',
-                    '#10b981',
-                    '#f59e0b',
-                    '#64748b'
-                ]
-            }]
-        },
-        options: {
-            responsive: true,
-            cutout: '70%',
-            plugins: {
-                legend: { position: 'bottom' }
-            }
-        }
-    });
-}
+// ===============================
+// Sample table data
+// ===============================
+const tableBody = document.getElementById("applicant-table-body");
 
-// Populate Applicant Table
-function populateTable() {
-    const tableBody = document.getElementById('applicant-table-body');
-    tableBody.innerHTML = '';
+const applicants = [
+  ["Aarav Patel", "Frontend Dev", "2 Years", "Jan 29", "Shortlisted"],
+  ["Sneha Rao", "Backend Dev", "3 Years", "Jan 28", "Pending"],
+  ["Rohan Mehta", "UI/UX", "1.5 Years", "Jan 27", "Reviewed"]
+];
 
-    applicants.forEach(applicant => {
-        const row = document.createElement('tr');
-        
-        // Determine status class for styling
-        const statusClass = applicant.status.toLowerCase();
-
-        row.innerHTML = `
-            <td><strong>${applicant.name}</strong></td>
-            <td>${applicant.role}</td>
-            <td>${applicant.exp}</td>
-            <td>${applicant.date}</td>
-            <td><span class="status ${statusClass}">${applicant.status}</span></td>
-            <td>
-                <button class="action-btn" title="View Profile"><i class="fas fa-eye"></i></button>
-                <button class="action-btn" title="Download Resume"><i class="fas fa-download"></i></button>
-            </td>
-        `;
-        tableBody.appendChild(row);
-    });
-}
+applicants.forEach(a => {
+  const row = `
+    <tr>
+      <td>${a[0]}</td>
+      <td>${a[1]}</td>
+      <td>${a[2]}</td>
+      <td>${a[3]}</td>
+      <td>${a[4]}</td>
+      <td><i class="fas fa-ellipsis-h"></i></td>
+    </tr>`;
+  tableBody.innerHTML += row;
+});
