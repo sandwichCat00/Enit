@@ -1,34 +1,35 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 {% extends 'base.html' %}
+
 {% block content %}
+<div class="page-wrapper">
+    <h2 class="page-title">Student Dashboard</h2>
+    <div class="container">
+        <!-- Profile Card -->
+        <div class="card">
+            <h3>Profile</h3>
+            <p>View and update your personal and academic details.</p>
+            <a href="{{ url_for('student_profile') }}">
+                <button>Go to Profile</button>
+            </a>
+        </div>
 
-<h2>Student Dashboard</h2>
+        <!-- Placeholder for future options -->
+        <div class="card">
+            <h3>Upload Resume</h3>
+            <p>Upload or update your resume.</p>
+            <a href="{{ url_for('upload_resume') }}">
+                <button>Upload</button>
+            </a>
+        </div>
 
-<div class="card">
-    <h3>My Profile</h3>
-    <p>CGPA: {{ student.cgpa }}</p>
-    <p>Branch: {{ student.branch }}</p>
-    <p>Backlogs: {{ student.backlogs }}</p>
-    <p>Domain: {{ student.domain }}</p>
+        <div class="card">
+            <h3>View Scores</h3>
+            <p>Check your semester-wise scores and CGPA.</p>
+            <a href="{{ url_for('view_scores') }}">
+                <button>View</button>
+            </a>
+        </div>
+    </div>
 </div>
-
-<h3>Company Drives</h3>
-
-{% for c in companies %}
-<div class="card">
-    <h4>{{ c.name }} — {{ c.role }}</h4>
-
-    {% if c.eligible %}
-        <p class="success">Eligible ✔</p>
-        <p>{{ c.reason }}</p>
-        <form method="POST" action="/apply/{{ c.id }}">
-            <button>Apply</button>
-        </form>
-    {% else %}
-        <p class="reason">Not Eligible ❌</p>
-        <p>{{ c.reason }}</p>
-    {% endif %}
-</div>
-{% endfor %}
-
 {% endblock %}

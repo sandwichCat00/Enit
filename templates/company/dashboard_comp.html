@@ -1,28 +1,152 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 {% extends 'base.html' %}
+
 {% block content %}
 
-<h2>Company Dashboard</h2>
+<div class="container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>Recruit<span>Pro</span></h2>
+        </div>
 
-<div class="card">
-    <h3>Post New Hiring Drive</h3>
-    <a href="/company/post-job">
-        <button>Create Drive</button>
-    </a>
-</div>
+        <ul class="menu">
+            <li class="active">
+                <a href="#"><i class="fas fa-th-large"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-user-graduate"></i> Candidates</a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-briefcase"></i> Jobs</a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-calendar-alt"></i> Interviews</a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+            </li>
+        </ul>
 
-<div class="card">
-    <h3>Active Drives</h3>
-    {% for drive in drives %}
-        <p>
-            <strong>{{ drive.role }}</strong><br>
-            Min CGPA: {{ drive.min_cgpa }} |
-            Max Backlogs: {{ drive.max_backlogs }}
-        </p>
-        <a href="/company/applicants/{{ drive.id }}">
-            <button>View Applicants</button>
+        <div class="logout">
+        <a href="{{ url_for('company_login') }}">
+            <i class="fas fa-sign-out-alt"></i> Logout
         </a>
-    {% endfor %}
+
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <header>
+            <div class="header-title">
+                <h1>Dashboard Overview</h1>
+                <p>Welcome back, {{ company_name | default('Hiring Manager') }}</p>
+            </div>
+
+            <div class="user-profile">
+                <div class="notification">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <img src="https://via.placeholder.com/40" class="avatar" alt="Profile">
+            </div>
+        </header>
+
+        <!-- KPI CARDS -->
+        <div class="kpi-grid">
+            <div class="card kpi-card">
+                <div class="card-info">
+                    <h3>Total Applied</h3>
+                    <h2 id="total-applied">0</h2>
+                    <span class="trend positive">
+                        <i class="fas fa-arrow-up"></i> +12% this week
+                    </span>
+                </div>
+                <div class="card-icon blue">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+
+            <div class="card kpi-card">
+                <div class="card-info">
+                    <h3>Shortlisted</h3>
+                    <h2 id="total-shortlisted">0</h2>
+                    <span class="trend positive">
+                        <i class="fas fa-arrow-up"></i> +5% this week
+                    </span>
+                </div>
+                <div class="card-icon green">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+
+            <div class="card kpi-card">
+                <div class="card-info">
+                    <h3>Pending Review</h3>
+                    <h2 id="total-pending">0</h2>
+                    <span class="trend neutral">
+                        <i class="fas fa-minus"></i> Stable
+                    </span>
+                </div>
+                <div class="card-icon orange">
+                    <i class="fas fa-clock"></i>
+                </div>
+            </div>
+
+            <div class="card kpi-card">
+                <div class="card-info">
+                    <h3>Interviews Today</h3>
+                    <h2>4</h2>
+                    <span class="trend">Next: 2:00 PM</span>
+                </div>
+                <div class="card-icon purple">
+                    <i class="fas fa-video"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHARTS -->
+        <div class="charts-grid">
+            <div class="card chart-container">
+                <h3>Application Trends</h3>
+                <canvas id="applicationChart"></canvas>
+            </div>
+
+            <div class="card chart-container">
+                <h3>Candidates by Role</h3>
+                <canvas id="roleChart"></canvas>
+            </div>
+        </div>
+
+        <!-- RECENT APPLICANTS -->
+        <div class="recent-applicants">
+            <div class="table-header">
+                <h3>Recent Applicants</h3>
+                <button class="view-all-btn">View All</button>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role Applied</th>
+                            <th>Experience</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicant-table-body">
+                        <!-- Filled by JS or backend -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 </div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 
 {% endblock %}
