@@ -10,14 +10,14 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/login/student')
+@app.route('/login/student', methods=['GET', 'POST'])
 def student_login():
-    
     return render_template('auth/student_login.html')
 
-@app.route('/login/company')
+@app.route('/login/company', methods=['GET', 'POST'])
 def company_login():
     return render_template('auth/company_login.html')
+
 
 
 
