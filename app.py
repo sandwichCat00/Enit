@@ -43,10 +43,11 @@ def company_login():
     return render_template('auth/company_login.html')
 
 
+@app.route('/company/dashboard_comp', methods=['GET'])
 
-
-@app.route('/company/dashboard_comp')
 def company_dashboard():
+    if request.method == 'GET':
+        print("DEBUG: Company Dashboard Accessed!")
     return render_template('company/dashboard_comp.html')
 
 @app.route('/company/post-job')
