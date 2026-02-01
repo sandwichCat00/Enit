@@ -43,6 +43,13 @@ def company_login():
         return render_template('company/dashboard_comp.html')
     return render_template('auth/company_login.html')
 
+@app.route('/signup/company', methods=['GET'])
+def company_signup():
+    if request.method == 'POST':
+        print("DEBUG: Company Login Button Clicked!") 
+        return render_template('company/dashboard_comp.html')
+    return render_template('auth/company_signup.html')
+
 
 @app.route('/company/dashboard_comp', methods=['GET'])
 
