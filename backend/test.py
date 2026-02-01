@@ -1,96 +1,92 @@
-from db import DB, DBError
+from db import DB
+
+db = DB()
 
 
-def run_tests():
-    try:
-        db = DB()
-        print("Connected to MongoDB")
+def run_test(name, payload):
+    print(f"\nTEST: {name}")
+    res = db.act(payload)
+    print(res)
 
-        print("\nSTUDENT TESTS")
 
-        student_data = {
-            "student_id": "TEST2026CSE001",
-            "college_id": "COL001",
-            "name": "Test Student",
-            "pfp": "",
-            "email": "test@student.edu",
-            "phone": "+911234567890",
-            "branch": "CSE",
-            "section": "A",
-            "sem": 7,
-            "cgpa": 8.5,
-            "backlogs": 0,
-            "skills": [
-                {"name": "Python", "level": "advanced"},
-                {"name": "Flask", "level": "intermediate"}
-            ],
-            "placement": {"status": 0}
+run_test(
+    "Valid new user",
+    {
+        "task": "newUser",
+        "data": {
+            "student_id": "DEPLOY2026CSE001",
+            "email": "deploy1@test.com",
+            "name": "Deploy User"
         }
+    }
+)
 
-        sid = db.insert_student(student_data)
-        print(f"Student inserted: {sid}")
-
-        student = db.find_student({"student_id": "TEST2026CSE001"})
-        print("Student fetched:", student)
-
-        updated = db.update_student(
-            {"student_id": "TEST2026CSE001"},
-            {"cgpa": 8.8}
-        )
-        print(f"Student updated: {updated}")
-
-        deleted = db.delete_student(
-            {"student_id": "TEST2026CSE001"},
-            soft=True
-        )
-        print(f"Student soft-deleted: {deleted}")
-
-        print("\n--- RECRUITER TESTS ---")
-
-        recruiter_data = {
-            "company_name": "TestCorp",
-            "recruiter_name": "Test HR",
-            "recruiter_email": "hr@testcorp.com",
-            "recruiter_phone": "+919999999999",
-            "role": "hr",
-            "company_type": "startup",
-            "industry": "software",
-            "work_mode": "remote",
-            "eligibility": {
-                "branches_allowed": ["CSE", "IT"],
-                "min_cgpa": 7.5,
-                "max_backlogs": 0,
-                "allowed_semesters": [7, 8],
-                "required_skills": ["Python"]
-            }
+run_test(
+    "Duplicate student_id",
+    {
+        "task": "newUser",
+        "data": {
+            "student_id": "DEPLOY2026CSE001",
+            "email": "deploy2@test.com"
         }
+    }
+)
 
-        rid = db.insert_recruiter(recruiter_data)
-        print(f"Recruiter inserted: {rid}")
+run_test(
+    "Duplicate email",
+    {
+        "task": "newUser",
+        "data": {
+            "student_id": "DEPLOY2026CSE002",
+            "email": "deploy1@test.com"
+        }
+    }
+)
+run_test(
+    "Missing student_id",
+    {
+        "task": "newUser",
+        "data": {
+            "email": "missing@test.com"
+        }
+    }
+)
+run_test(
+    "Empty data",
+    {
+        "task": "newUser",
+        "data": {}
+    }
+)
+run_test(
+    "No data key",
+    {
+        "task": "newUser"
+    }
+)
 
-        recruiter = db.find_recruiters({"company_name": "TestCorp"})
-        print("Recruiter fetched:", recruiter)
-
-        updated = db.update_recruiter(
-            {"company_name": "TestCorp"},
-            {"work_mode": "hybrid"}
-        )
-        print(f"Recruiter updated: {updated}")
-
-        deleted = db.delete_recruiter(
-            {"company_name": "TestCorp"},
-            soft=True
-        )
-        print(f"Recruiter soft-deleted: {deleted}")
-
-        print("\nALL TESTS PASSED")
-
-    except DBError as e:
-        print("DB ERROR:", e)
-
-    except Exception as e:
-        print("UNEXPECTED ERROR:", e)
-
-
-if __name__ == "__main__":
-    run_tests()
+run_test(
+    "Invalid task",
+    {
+        "task": "createUser",
+        "data": {
+            "student_id": "DEPLOY2026CSE003"
+        }
+    }
+)
+run_test(
+    "Invalid data type",
+    {
+        "task": "newUser",
+        "data": "this-should-be-a-dict"
+    }
+)
+run_test(
+    "Partial but valid",
+    {
+        "task": "newUser",
+        "data": {
+            "student_id": "DEPLOY2026CSE004"
+        }
+    }
+)

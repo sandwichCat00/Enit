@@ -291,7 +291,7 @@ class DB:
         try:
             task = query.get("task")
             data = query.get("data", {})
-
+            print(query)
             match task:
                 case "newUser":
                     self.insert_student(data)

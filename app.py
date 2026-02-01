@@ -7,7 +7,7 @@ dbase = db.DB()
 
 @app.route('/', methods=['POST'])
 def handle_req():
-    data = request.form
+    data = request.get_json()
     return dbase.act(data)
 
 @app.route('/', methods=['GET'])
@@ -51,23 +51,28 @@ def company_dashboard():
         print("DEBUG: Company Dashboard Accessed!")
     return render_template('company/dashboard_comp.html')
 
+
 @app.route('/company/post-job')
 def post_job():
     return render_template('company/post_job.html')
+
+@app.route('/student/profile')
+def profile():
+    return render_template('student/profile.html')
 
 @app.route('/company/applications')
 def view_applications():
     return render_template('company/application.html')
 
 
-# @app.route('/student/dashboard')
-# def student_dashboard():
-#     # 1. Create dummy data (later this will come from your database)
-#     student_data = {
-#         'name': 'Rahul Sharma',
-#         'branch': 'Computer Science',
-#         'cgpa': 8.5
-#     }
+@app.route('/student/dashboard')
+def student_dashboard():
+    # 1. Create dummy data (later this will come from your database)
+    student_data = {
+        'name': 'Rahul Sharma',
+        'branch': 'Computer Science',
+        'cgpa': 8.5
+    }
 
     return render_template('student/dashboard_stud.html', student=student_data)
 
