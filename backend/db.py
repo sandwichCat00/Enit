@@ -269,6 +269,24 @@ class DB:
         except errors.PyMongoError as e:
             raise DBError(f"Delete recruiter failed: {str(e)}")
 
+    def handle_login(self, data):
+        email = data.get("email")
+        password = data.get("password")
+        
+        student = self.find_student({"email": email})
+        if student:
+            if self.verify_password(password, student.get("password")):
+                del student["password"]
+                return {"status": "ok", "role": "student", "data": student}
+        
+        recruiter = self.find_recruiter({"email": email})
+        if recruiter:
+            if self.verify_password(password, recruiter.get("password")):
+                del recruiter["password"]
+                return {"status": "ok", "role": "recruiter", "data": recruiter}
+
+        return {"status": "error", "msg": "Invalid email or password"}
+
     def act(self, query: dict):
         try:
             task = query.get("task")
@@ -282,7 +300,8 @@ class DB:
                 case "getStudent":
                     student = self.find_student(data)
                     return {"status": "ok", "data": student}
-
+                case "login":
+                    return self.handle_login(data)
                 case "updateStudent":
                     self.update_student(
                     data.get("query", {}),
